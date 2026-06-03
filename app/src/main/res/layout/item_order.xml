@@ -65,11 +65,12 @@
         android:layout_marginTop="8dp" />
 
     <Button
-        android:id="@+id/acceptOrderButton"
+        android:id="@+id/advanceOrderButton"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="Accept Order"
-        android:visibility="gone"
+        android:text="Advance Order"
+        android:visibility="visible"
+        android:enabled="true"
         android:backgroundTint="#008000"
         />
 

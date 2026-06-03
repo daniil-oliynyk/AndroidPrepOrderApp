@@ -10,15 +10,13 @@ import java.util.Locale
 
 class OrderAdapter(
     private val onOrderClicked: (FoodOrder) -> Unit,
-    private val onAcceptOrderButtonClick: (FoodOrder) -> Unit
+    private val onAdvanceOrderButtonClick: (FoodOrder) -> Unit
 ) : RecyclerView.Adapter<OrderAdapter.OrderViewHolder>() {
 
     private val orders = mutableListOf<FoodOrder>()
     private var expandableOrderId: String? = null
 
-    fun setOrderStatus() {
-        notifyDataSetChanged()
-    }
+
     fun setExpandableOrderId(orderId: String?) {
         expandableOrderId = orderId
         notifyDataSetChanged()
@@ -37,7 +35,7 @@ class OrderAdapter(
             false
         )
 
-        return OrderViewHolder(binding, onOrderClicked, onAcceptOrderButtonClick)
+        return OrderViewHolder(binding, onOrderClicked, onAdvanceOrderButtonClick)
     }
 
     override fun onBindViewHolder(holder: OrderViewHolder, position: Int) {
@@ -54,7 +52,7 @@ class OrderAdapter(
     class OrderViewHolder(
         private val binding: ItemOrderBinding,
         private val onOrderClicked: (FoodOrder) -> Unit,
-        private val onAcceptOrderButtonClick: (FoodOrder) -> Unit
+        private val onAdvanceOrderButtonClick: (FoodOrder) -> Unit
     ) : RecyclerView.ViewHolder(binding.root) {
 
         fun bind(order: FoodOrder, isExpanded: Boolean) {
@@ -71,16 +69,16 @@ class OrderAdapter(
                 ""
             }
 
-            binding.acceptOrderButton.visibility = if (order.status == OrderStatus.PENDING) android.view.View.VISIBLE else android.view.View.GONE
 
             binding.itemsTextView.text = order.items.joinToString(separator = "\n") { item ->
                 "• $item"
             }
 
             binding.orderDetailsContainer.visibility = if (isExpanded) android.view.View.VISIBLE else android.view.View.GONE
+            binding.advanceOrderButton.isEnabled = if (order.status == OrderStatus.DELIVERED || order.status == OrderStatus.CANCELLED) false else true
 
             binding.root.setOnClickListener { onOrderClicked(order) }
-            binding.acceptOrderButton.setOnClickListener { onAcceptOrderButtonClick(order)}
+            binding.advanceOrderButton.setOnClickListener { onAdvanceOrderButtonClick(order)}
         }
 
         private fun formatPrice(totalCents: Int): String {

@@ -29,16 +29,16 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun setupRecyclerView() {
-        orderAdapter = OrderAdapter(onOrderClicked = { order -> handleOrderClicked(order) } , onAcceptOrderButtonClick =  { order -> handleAcceptOrderClick(order)})
+        orderAdapter = OrderAdapter(onOrderClicked = { order -> handleOrderClicked(order) } , onAdvanceOrderButtonClick =  { order -> handleAdvanceOrderClick(order)})
 
         binding.ordersRecyclerView.apply {
             layoutManager = LinearLayoutManager(this@MainActivity)
             adapter = orderAdapter
         }
     }
-    private fun handleAcceptOrderClick(order: FoodOrder) {
-        order.status = OrderStatus.ACCEPTED
-        orderAdapter.setOrderStatus()
+    private fun handleAdvanceOrderClick(order: FoodOrder) {
+        order.status = advanceOrderStatus(order.status)
+        orderAdapter.notifyDataSetChanged()
     }
     private fun handleOrderClicked(order: FoodOrder) {
         expandedOrderId = if (expandedOrderId == order.id) {

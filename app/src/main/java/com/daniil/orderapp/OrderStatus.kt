@@ -11,7 +11,16 @@ enum class OrderStatus {
     DELIVERED,
     CANCELLED
 }
-
+fun advanceOrderStatus(orderStatus: OrderStatus): OrderStatus {
+    return when(orderStatus) {
+        OrderStatus.PENDING -> OrderStatus.ACCEPTED
+        OrderStatus.ACCEPTED -> OrderStatus.PREPARING
+        OrderStatus.PREPARING -> OrderStatus.READY
+        OrderStatus.READY -> OrderStatus.DELIVERED
+        OrderStatus.DELIVERED -> OrderStatus.DELIVERED
+        OrderStatus.CANCELLED -> OrderStatus.CANCELLED
+    }
+}
 fun mapStatusColor(orderStatus: OrderStatus): Int {
 
     return when(orderStatus) {
