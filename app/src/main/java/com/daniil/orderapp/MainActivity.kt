@@ -1,6 +1,7 @@
 package com.daniil.orderapp
 
 import android.os.Bundle
+import android.view.View
 import androidx.activity.enableEdgeToEdge
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
@@ -15,6 +16,8 @@ class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
     private lateinit var orderAdapter: OrderAdapter
 
+    private var expandedOrderId: String? = null
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -26,12 +29,25 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun setupRecyclerView() {
-        orderAdapter = OrderAdapter()
+        orderAdapter = OrderAdapter(onOrderClicked = { order -> handleOrderClicked(order) } , onAcceptOrderButtonClick =  { order -> handleAcceptOrderClick(order)})
 
         binding.ordersRecyclerView.apply {
             layoutManager = LinearLayoutManager(this@MainActivity)
             adapter = orderAdapter
         }
+    }
+    private fun handleAcceptOrderClick(order: FoodOrder) {
+        order.status = OrderStatus.ACCEPTED
+        orderAdapter.setOrderStatus()
+    }
+    private fun handleOrderClicked(order: FoodOrder) {
+        expandedOrderId = if (expandedOrderId == order.id) {
+            null
+        } else {
+            order.id
+        }
+
+        orderAdapter.setExpandableOrderId(expandedOrderId)
     }
 
     private fun loadOrders() {

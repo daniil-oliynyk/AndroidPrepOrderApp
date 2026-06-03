@@ -64,4 +64,43 @@
         android:textColor="#B00020"
         android:layout_marginTop="8dp" />
 
+    <Button
+        android:id="@+id/acceptOrderButton"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:text="Accept Order"
+        android:visibility="gone"
+        android:backgroundTint="#008000"
+        />
+
+    <LinearLayout
+        android:id="@+id/orderDetailsContainer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:visibility="gone"
+        android:layout_marginTop="12dp">
+
+        <TextView
+            android:id="@+id/itemsTitleTextView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Items:"
+            android:textSize="14sp"
+            android:textStyle="bold"
+            android:textColor="#111111" />
+
+        <TextView
+            android:id="@+id/itemsTextView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Burger\nFries\nCoke"
+            android:textSize="14sp"
+            android:textColor="#444444"
+            android:layout_marginTop="4dp" />
+
+    </LinearLayout>
+
+
 </LinearLayout>
+
